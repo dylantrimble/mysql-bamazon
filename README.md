@@ -1,1 +1,1 @@
-# mysql-bamazon
+# bamazon
