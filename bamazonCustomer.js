@@ -48,7 +48,9 @@ function promptUserPurchase() {
 
         var quantity = input.quantity;
 
-        connection.query(queryStr, { item_id }, function (err, data) {
+        var queryStr = 'SELECT * FROM products WHERE ?';
+
+        connection.query(queryStr, {item_id: item}, function (err, data) {
             if (err) throw err;
 
             if (data.length === 0) {
@@ -60,7 +62,8 @@ function promptUserPurchase() {
                 if (quantity <= productData.stock_quantity) {
                     console.log("Congratulations! The product you selected is in stock! Preparing your order now!");
 
-                    var updateQueryStr = 'UPDATE products SET stock_quantity = '(productData.stock_quantity - quantity) + 'WHERE item_id = ' + item;
+                    //var updateQueryStr = 'UPDATE products SET stock_quantity = '(productData.stock_quantity - quantity) + 'WHERE item_id = ' + item;
+                    var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE item_id = ' + item;
 
                     connection.query(updateQueryStr, function (err, data) {
                         if (err) throw err;
@@ -68,7 +71,7 @@ function promptUserPurchase() {
                         console.log(`
    --------------- 
 Your Order has been placed!
-Your total is ${productData.price * quantity}
+Your total is $${productData.price * quantity}
 Thank You for shopping with us!
    ---------------`);
                         connection.end();
@@ -76,7 +79,7 @@ Thank You for shopping with us!
                 } else {
                     console.log(`
     ----------------
-Sorry, there is not enough porduct in stock, 
+Sorry, there is not enough product in stock, 
 your order can not be placed as is.
 Please modify your order.
     ----------------`);
