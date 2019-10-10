@@ -1,8 +1,8 @@
-var inquirer = require('inquirer');
-var mysql = require('mysql');
+const inquirer = require('inquirer');
+const mysql = require('mysql');
 
 
-var connection = mysql.createConnection({
+const connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
 
@@ -42,7 +42,7 @@ function promptUserPurchase() {
             validate: validateInput,
             filter: Number
         }
-    ]).then(function (input) {
+    ]).then((input) => {
 
         var item = input.item_id;
 
@@ -50,7 +50,7 @@ function promptUserPurchase() {
 
         var queryStr = 'SELECT * FROM products WHERE ?';
 
-        connection.query(queryStr, {item_id: item}, function (err, data) {
+        connection.query(queryStr, {item_id: item}, (err, data) => {
             if (err) throw err;
 
             if (data.length === 0) {
@@ -62,10 +62,9 @@ function promptUserPurchase() {
                 if (quantity <= productData.stock_quantity) {
                     console.log("Congratulations! The product you selected is in stock! Preparing your order now!");
 
-                    //var updateQueryStr = 'UPDATE products SET stock_quantity = '(productData.stock_quantity - quantity) + 'WHERE item_id = ' + item;
                     var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE item_id = ' + item;
 
-                    connection.query(updateQueryStr, function (err, data) {
+                    connection.query(updateQueryStr, (err, data) => {
                         if (err) throw err;
 
                         console.log(`
@@ -96,7 +95,7 @@ function displayInventory(){
 
     queryStr = 'SELECT * FROM products';
 
-    connection.query(queryStr, function(err, data){
+    connection.query(queryStr, (err, data) => {
         if (err) throw err;
 
         console.log(`
