@@ -24,7 +24,7 @@ To run the customer interface please follow the steps below:
 
 This is the initial screen you will be greeted with, asking you to elect a product from inventory.
 
-![Quantity selection](images/quantitiy.png)
+![Quantity selection](images/quantity.png)
 
 Next you will be asked to selct your desir1ed product quantity.
 
