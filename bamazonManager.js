@@ -13,3 +13,11 @@ var connection = mysql.createConnection({
 	password: 'passroot',
 	database: 'bamazon_db'
 });
+
+// promptManagerAction will present menu options to the manager and trigger appropriate logic
+function promptManagerAction() {
+
+	// Prompt the manager to select an option
+
+    // .then conditional statements to run through manager functions
+};
